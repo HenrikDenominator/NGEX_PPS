@@ -769,6 +769,7 @@ Print 0, 0, " Washing 1"
 	MoveToPos(7)
 	HeightMM(1)
 	
+	WashBeads(7, 8, @WashVol2, @Speed_P_H, @Speed_P_HH, 50, 100)
 	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,100,50)
 	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
 
@@ -803,6 +804,7 @@ Print 0, 0, " Washing 1"
 	MoveToPos(8)
 	HeightMM(1)
 	
+	WashBeads(8, 8, @WashVol2, @Speed_P_H, @Speed_P_HH, 50, 100)
 	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50)
 	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
 	MoveToPos(7)
@@ -857,7 +859,9 @@ Print 0, 0, "Elution"
 	HeightMM(1)
 	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
 	Mix(5,150,@Speed_P_ML,@Speed_P_H,50,50)
-	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)	
+	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)
+	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
+	Mix(5,50,@Speed_P_ML,@Speed_P_H,50,50)	
 	DispenseS(35, @Speed_P_M)
 	
 		GoTo *elutionend1
@@ -872,6 +876,8 @@ Print 0, 0, "Elution"
 	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
 	Mix(5,150,@Speed_P_ML,@Speed_P_H,50,50)
 	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)	
+	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
+	Mix(5,50,@Speed_P_ML,@Speed_P_H,50,50)	
 	DispenseS(60, @Speed_P_M)
 	
 		GoTo *elutionend1
@@ -886,7 +892,9 @@ Print 0, 0, "Elution"
 	HeightMM(1)
 	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
 	Mix(5,150,@Speed_P_ML,@Speed_P_H,50,50)
-	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)	
+	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)
+	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
+	Mix(5,50,@Speed_P_ML,@Speed_P_H,50,50)		
 	DispenseS(110, @Speed_P_M)
 	
 		GoTo *elutionend1
@@ -897,6 +905,7 @@ Print 0, 0, "Elution"
 '	Print 0, 0, "Resuspension"	
 
 	'---(Beads Suspension)---
+	Wait 10000
 	MoveToPos(8)
 	HeightMM(1)
 	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50)
