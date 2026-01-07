@@ -661,16 +661,17 @@ SetTemperature @EluteTempDNA
 '---(Well 1)---
 'ClearScreen
 'Print 0, 0, "Well 1"
+*skip_to_binding
 	MoveToPos(1)
 	HeightMM(1)
-	DispenseS(@SampleVol, @Speed_P_M)
-	DispenseS(@LB2Vol, @Speed_P_M)
-	DispenseS(60, @Speed_P_M)
+	'DispenseS(@SampleVol, @Speed_P_M)
+	'DispenseS(@LB2Vol, @Speed_P_M)
+	'DispenseS(60, @Speed_P_M)
 
 '==========<< Binding to Beads >>============
 ClearScreen
 Print 0, 0, " Binding "
-*skip_to_binding
+
 '===========<< Beads separation >>==================
 	Mix(15,400,@Speed_P_HH,@Speed_P_H,100,100)
 	MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
@@ -829,7 +830,9 @@ Print 0, 0, " Washing 1"
 'Print 0, 1, "Separation"
 
 	MagSepPos(8, @WashVol2, @Magnet_M)
-
+	AMove M, @Magnet_M
+	DispenseS(50, @Speed_P_H)
+	Org M
 	MoveToPos(10)
 	HeightMM(1)
 '==============<< Temp waiting >>=================   
@@ -852,6 +855,9 @@ Print 0, 0, "Elution"
 '	ClearScreen
 	MoveToPos(12)
 	HeightMM(1)
+	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
+	Mix(5,150,@Speed_P_ML,@Speed_P_H,50,50)
+	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)	
 	DispenseS(35, @Speed_P_M)
 	
 		GoTo *elutionend1
@@ -863,6 +869,9 @@ Print 0, 0, "Elution"
 '	ClearScreen
 	MoveToPos(12)
 	HeightMM(1)
+	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
+	Mix(5,150,@Speed_P_ML,@Speed_P_H,50,50)
+	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)	
 	DispenseS(60, @Speed_P_M)
 	
 		GoTo *elutionend1
@@ -875,6 +884,9 @@ Print 0, 0, "Elution"
 '	ClearScreen
 	MoveToPos(12)
 	HeightMM(1)
+	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
+	Mix(5,150,@Speed_P_ML,@Speed_P_H,50,50)
+	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)	
 	DispenseS(110, @Speed_P_M)
 	
 		GoTo *elutionend1
@@ -890,6 +902,9 @@ Print 0, 0, "Elution"
 	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50)
 	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
 	MagSepPos(8, @WashVol2, @Magnet_M)
+	AMove M, @Magnet_M
+	DispenseS(50, @Speed_P_H)
+	Org M
 	MoveToPos(12)
 	HeightMM(1) 
 	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
