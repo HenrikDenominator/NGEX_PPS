@@ -179,6 +179,8 @@ Add @Magnet_H, 100
 Add @Magnet_M, -400
 Add @Magnet_S, -900
 
+Dim @conf_skip_to_binding
+Let @conf_skip_to_binding, 1
 
 '**********NA Purification **********
 *Check
@@ -289,7 +291,7 @@ ClearScreen
 HoodLock On 'Let @Cover.Locked, 1
 
 ClearScreen	
-
+If @conf_skip_to_binding Then GoTo *skip_to_binding
 
 '=============<< Piercing (12GC) >>===============
 
@@ -668,21 +670,22 @@ SetTemperature @EluteTempDNA
 '==========<< Binding to Beads >>============
 ClearScreen
 Print 0, 0, " Binding "
-
+*skip_to_binding
+'===========<< Beads separation >>==================
 	Mix(15,400,@Speed_P_HH,@Speed_P_H,100,100)
 	MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
 	
 'Print 0, 2, " Incub 1 of 3   "
-	IncubTime(@BindTime)
-	MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
+	'IncubTime(@BindTime)
+	'MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
 	
 'Print 0, 2, " Incub 2 of 3   "
-	IncubTime(@BindTime)
-	MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
+	'IncubTime(@BindTime)
+	'MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
 	
 'Print 0, 2, " Incub 3 of 3   "
-	IncubTime(@BindTime)
-	MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
+	'IncubTime(@BindTime)
+	'MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
 	HeightMM(1)
 	
 
@@ -710,33 +713,34 @@ Print 0, 0, " Binding "
 	Org M
 	AMove Z, @Stage.Z.Safe	
 
-	WashBeads(6, 25, @WashVol2, @Speed_P_H, @Speed_P_H, 50, 100)
-	'HeightMM(1) 
-
+	WashBeads(6, 50, @WashVol2, @Speed_P_H, @Speed_P_H, 50, 100)
+	HeightMM(1) 
+	
 	' Removed entire block of second bead capture as it is not needed.
-	' MoveToPos(1)
-	' HeightMM(1)
-	' AMove M, @Magnet_S
+	 MoveToPos(1)
+	 HeightMM(1)
+	 MixTwoLevels(20,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
+	 AMove M, @Magnet_S
 
-	' Mix(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_L,1000,50)
-	' AspirateS(@TotSampleBuffVol, @Speed_P_M)
-	' 'Wait 1000
-	' 'AspirateS(200, @Speed_P_M)
-	' 'Wait 1000
+	 Mix(15,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_L,1000,50)
+	 AspirateS(@TotSampleBuffVol, @Speed_P_M)
+	 'Wait 1000
+	 'AspirateS(200, @Speed_P_M)
+	 'Wait 1000
 
-	' Wait 1000
-	' Let @Slim_BF, @Proc(1).Z.Process  
-		' Add @Slim_BF, 5200
-		' AMove Z, @Slim_BF
-		' AMove M, @Magnet_M
-		' AspirateS(100, @Speed_P_L)
-		' Wait 3000
-		' DispenseS(@TotSampleBuffVol, @Speed_P_L)
-		' DispenseS(100, @Speed_P_L)'DispenseS(300, @Speed_P_L)
-		' Wait 100
+	 Wait 1000
+	 Let @Slim_BF, @Proc(1).Z.Process  
+		 Add @Slim_BF, 5200
+		 AMove Z, @Slim_BF
+		 AMove M, @Magnet_M
+		 AspirateS(100, @Speed_P_L)
+		 Wait 3000
+		 DispenseS(@TotSampleBuffVol, @Speed_P_L)
+		 DispenseS(100, @Speed_P_L)'DispenseS(300, @Speed_P_L)
+		 Wait 100
 
-	' WashBeads(6, 15, @WashVol2, @Speed_P_H, @Speed_P_HH, 50, 100)
-	' 'HeightMM(1) 
+	 WashBeads(6, 15, @WashVol2, @Speed_P_H, @Speed_P_HH, 50, 100)
+	 'HeightMM(1) 
 	
 	AMove Z, @Stage.Z.Safe
 	
@@ -744,7 +748,7 @@ Print 0, 0, " Binding "
 '========<< DNA Wash 1 >>====================
 '---(Well 3)---
 ClearScreen
-Print 0, 0, " Washing"
+Print 0, 0, " Washing 1"
 	MoveToPos(6)
 	HeightMM(1)
 	
@@ -756,6 +760,7 @@ Print 0, 0, " Washing"
 'Print 0, 1, "Separation"
 
 	MagSepPos(6, @WashVol2, @Magnet_M)
+	
 
 '========<< DNA Wash 2 >>====================
 'ClearScreen
@@ -764,8 +769,25 @@ Print 0, 0, " Washing"
 	HeightMM(1)
 	
 	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,100,50)
-	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50) 
+	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
 
+	MoveToPos(6)
+	HeightMM(1)
+	
+	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50) 
+	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50) 
+	AMove Z, @Proc(6).Z.Process
+
+'---BF Separation---
+'Print 0, 1, "Separation"
+
+	MagSepPos(6, @WashVol2, @Magnet_M) 
+
+	MoveToPos(7)
+	HeightMM(1)
+	
+	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,100,50)
+	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
 	AMove Z, @Proc(7).Z.Process
 
 '---BF Separation---
@@ -777,6 +799,23 @@ Print 0, 0, " Washing"
 '========<< DNA Wash 3 >>====================
 'ClearScreen
 'Print 0, 1, " DNA Wash 3"
+	MoveToPos(8)
+	HeightMM(1)
+	
+	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50)
+	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
+	MoveToPos(7)
+	HeightMM(1)
+	
+	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50) 
+	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50) 
+	AMove Z, @Proc(7).Z.Process
+
+'---BF Separation---
+'Print 0, 1, "Separation"
+
+	MagSepPos(7, @WashVol2, @Magnet_M)
+	
 	MoveToPos(8)
 	HeightMM(1)
 	
@@ -850,7 +889,14 @@ Print 0, 0, "Elution"
 '	ClearScreen
 '	Print 0, 0, "Resuspension"	
 
-	'---(Beads Suspension)--- 
+	'---(Beads Suspension)---
+	MoveToPos(8)
+	HeightMM(1)
+	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50)
+	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
+	MagSepPos(8, @WashVol2, @Magnet_M)
+	MoveToPos(12)
+	HeightMM(1) 
 	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
 	Mix(5,150,@Speed_P_ML,@Speed_P_H,50,50)
 	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)	
@@ -1141,6 +1187,8 @@ DispenseS(@DispVolume, @DispenseSpeed) {
 ' Tip1 Pos = -2 
 ' Elution Tube = -3
 ' Well 1 = 1,......Well 10 = 10
+
+
 
 MoveToPos(@Position) {
 	AMove M,0  
@@ -1445,9 +1493,16 @@ ResuspBeads(@Position, @Vol) {
 ' ~~~~~~~~~~~~~~WashingBeads
 WashBeads(@Position, @MixCycles, @MixVol, @AspSpeed, @DispSpeed, @AspWait, @DispWait) {
 	MoveToPos(@Position)			
-	HeightMM(2)	
+	HeightMM(2)
 	Mix(@MixCycles,@MixVol,@AspSpeed,@DispSpeed,@AspWait,@DispWait) 'Mix(20,5000,2500,8000,500,500)
-	Wait 1000
+	AMove M, @Magnet_M
+	@Axis.Z.Speed = 300
+	AMove Z, @Stage.Z.Safe
+	Org M
+	@Axis.Z.Speed = 8000
+	Wait 5000
+	HeightMM(2)
+	Mix(@MixCycles,@MixVol,@AspSpeed,@DispSpeed,@AspWait,@DispWait) 'Mix(20,5000,2500,8000,500,500)
 	AspirateS(200, 2500)	
 	Wait 1000
 	DispenseS(200, 2500)
