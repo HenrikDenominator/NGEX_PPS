@@ -834,9 +834,10 @@ Print 0, 0, " Washing 1"
 'Print 0, 1, "Separation"
 
 	MagSepPos(8, @WashVol2, @Magnet_M)
+	Wait 10000
 	HeightMM(1)
 	AMove M, @Magnet_M
-	DispenseS(50, @Speed_P_H)
+	DispenseS(100, @Speed_P_H)
 	Org M
 	MoveToPos(10)
 	HeightMM(1)
