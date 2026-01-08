@@ -770,6 +770,7 @@ Print 0, 0, " Washing 1"
 	HeightMM(1)
 	
 	WashBeads(7, 8, @WashVol2, @Speed_P_H, @Speed_P_HH, 50, 100)
+	HeightMM(1)
 	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,100,50)
 	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
 
@@ -805,6 +806,7 @@ Print 0, 0, " Washing 1"
 	HeightMM(1)
 	
 	WashBeads(8, 8, @WashVol2, @Speed_P_H, @Speed_P_HH, 50, 100)
+	HeightMM(1)
 	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50)
 	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
 	MoveToPos(7)
