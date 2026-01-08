@@ -180,7 +180,7 @@ Add @Magnet_M, -400
 Add @Magnet_S, -900
 
 Dim @conf_skip_to_binding
-Let @conf_skip_to_binding, 1
+Let @conf_skip_to_binding, 0
 
 '**********NA Purification **********
 *Check
@@ -291,7 +291,7 @@ ClearScreen
 HoodLock On 'Let @Cover.Locked, 1
 
 ClearScreen	
-If @conf_skip_to_binding Then GoTo *skip_to_binding
+'If @conf_skip_to_binding Then GoTo *skip_to_binding
 
 '=============<< Piercing (12GC) >>===============
 
@@ -661,12 +661,12 @@ SetTemperature @EluteTempDNA
 '---(Well 1)---
 'ClearScreen
 'Print 0, 0, "Well 1"
-*skip_to_binding
+
 	MoveToPos(1)
 	HeightMM(1)
-	'DispenseS(@SampleVol, @Speed_P_M)
-	'DispenseS(@LB2Vol, @Speed_P_M)
-	'DispenseS(60, @Speed_P_M)
+	DispenseS(@SampleVol, @Speed_P_M)
+	DispenseS(@LB2Vol, @Speed_P_M)
+	DispenseS(60, @Speed_P_M)
 
 '==========<< Binding to Beads >>============
 ClearScreen
@@ -677,16 +677,16 @@ Print 0, 0, " Binding "
 	MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
 	
 'Print 0, 2, " Incub 1 of 3   "
-	'IncubTime(@BindTime)
-	'MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
+	IncubTime(@BindTime)
+	MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
 	
 'Print 0, 2, " Incub 2 of 3   "
-	'IncubTime(@BindTime)
-	'MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
+	IncubTime(@BindTime)
+	MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
 	
 'Print 0, 2, " Incub 3 of 3   "
-	'IncubTime(@BindTime)
-	'MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
+	IncubTime(@BindTime)
+	MixTwoLevels(10,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
 	HeightMM(1)
 	
 
@@ -919,6 +919,7 @@ Print 0, 0, "Elution"
 	HeightMM(1)
 	AMove M, @Magnet_M
 	DispenseS(50, @Speed_P_H)
+	'*skip_to_binding
 	Org M
 	AMove Z, @Stage.Z.Safe
 	MoveToPos(12)
@@ -1017,6 +1018,7 @@ Print 0, 0, "Elution"
 	IncubTime(@EluteTimeDNA)
 
 'Print 0, 1, " Resuspension "
+	
 	Mix(5,180,@Speed_P_ML,@Speed_P_H,50,50)
 	AMove Z, @Proc(12).Z.Process
 	
@@ -1028,15 +1030,15 @@ Print 0, 0, "Elution"
 	'---(BF Separation)---
 '	Print 0, 1, " Separation     " 
 	AMove M, @Magnet_Thick	
-	AspirateS(200, @Speed_P_ML)
+	AspirateS(400, @Speed_P_ML)
 	Wait 5000
-	DispenseS(200, @Speed_P_L)
-	AspirateS(200, @Speed_P_ML)
+	DispenseS(400, @Speed_P_L)
+	AspirateS(400, @Speed_P_ML)
 	Wait 5000
-	DispenseS(200, @Speed_P_L)
-	AspirateS(200, @Speed_P_ML)
+	DispenseS(400, @Speed_P_L)
+	AspirateS(400, @Speed_P_ML)
 	Wait 5000
-	DispenseS(250, @Speed_P_L)
+	DispenseS(450, @Speed_P_L)
 	RMove Z, 6000
 	Wait 5000
 	DispenseS(100, @Speed_P_L)     
