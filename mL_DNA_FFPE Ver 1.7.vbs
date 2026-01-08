@@ -834,6 +834,7 @@ Print 0, 0, " Washing 1"
 'Print 0, 1, "Separation"
 
 	MagSepPos(8, @WashVol2, @Magnet_M)
+	HeightMM(1)
 	AMove M, @Magnet_M
 	DispenseS(50, @Speed_P_H)
 	Org M
@@ -908,14 +909,17 @@ Print 0, 0, "Elution"
 
 	'---(Beads Suspension)---
 	Wait 10000
+	DispenseS(50, @Speed_P_M)
 	MoveToPos(8)
 	HeightMM(1)
 	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50)
 	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
 	MagSepPos(8, @WashVol2, @Magnet_M)
+	HeightMM(1)
 	AMove M, @Magnet_M
 	DispenseS(50, @Speed_P_H)
 	Org M
+	AMove Z, @Stage.Z.Safe
 	MoveToPos(12)
 	HeightMM(1) 
 	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
