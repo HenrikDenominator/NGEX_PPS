@@ -842,7 +842,11 @@ Print 0, 0, " Washing 1"
 	MoveToPos(10)
 	HeightMM(1)
 '==============<< Temp waiting >>=================   
-	
+*Temp_Wait_Elute
+       GetTemperature @Temp
+'      Print 4,2, @Temp
+'      Print 6,2, " "
+       If @Temp < @EluteTempDNA Then GoTo *Temp_Wait_Elute
 '============<< Elution-1 >>====================
 '---(Well 10)---
 ClearScreen
