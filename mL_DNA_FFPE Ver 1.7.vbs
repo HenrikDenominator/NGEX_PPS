@@ -179,7 +179,7 @@ Add @Magnet_H, 100
 Add @Magnet_M, -400
 Add @Magnet_S, -900
 
-Dim @conf_skip_to_binding
+Dim @conf_skip_to_binding    'Change: Added conf variable to skip to code line for debugging
 Let @conf_skip_to_binding, 0
 
 '**********NA Purification **********
@@ -714,21 +714,21 @@ Print 0, 0, " Binding "
 	Org M
 	AMove Z, @Stage.Z.Safe	
 
-	WashBeads(6, 50, @WashVol2, @Speed_P_H, @Speed_P_H, 50, 100)
+	WashBeads(6, 50, @WashVol2, @Speed_P_H, @Speed_P_H, 50, 100) 'Change: Increased cycles from 25 to 50.
 	HeightMM(1) 
 	
-	' Removed entire block of second bead capture as it is not needed.
+	'Change: Added all code between this and stop comment
 	 MoveToPos(1)
 	 HeightMM(1)
-	 MixTwoLevels(20,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100)
+	 MixTwoLevels(20,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_H,100,100) 'Change: Added MixTwoLevels
 	 AMove M, @Magnet_S
 
-	 Mix(15,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_L,1000,50)
+	 Mix(15,@MixTotSampleBuffVol,@Speed_P_H,@Speed_P_L,1000,50) 'Change: Increased cycles 10 -> 15
 	 AspirateS(@TotSampleBuffVol, @Speed_P_M)
 	 'Wait 1000
 	 'AspirateS(200, @Speed_P_M)
 	 'Wait 1000
-
+	 
 	 Wait 1000
 	 Let @Slim_BF, @Proc(1).Z.Process  
 		 Add @Slim_BF, 5200
@@ -742,7 +742,7 @@ Print 0, 0, " Binding "
 
 	 WashBeads(6, 15, @WashVol2, @Speed_P_H, @Speed_P_HH, 50, 100)
 	 'HeightMM(1) 
-	
+	 'Change: Stop comment
 	AMove Z, @Stage.Z.Safe
 	
 	
@@ -769,25 +769,25 @@ Print 0, 0, " Washing 1"
 	MoveToPos(7)
 	HeightMM(1)
 	
-	WashBeads(7, 8, @WashVol2, @Speed_P_H, @Speed_P_HH, 50, 100)
-	HeightMM(1)
+	WashBeads(7, 8, @WashVol2, @Speed_P_H, @Speed_P_HH, 50, 100) 'Change: Added line
+	HeightMM(1) 'Change: Added line
 	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,100,50)
 	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
 
-	MoveToPos(6)
-	HeightMM(1)
+	MoveToPos(6) 'Change: Recapture from prev well
+	HeightMM(1)	 'Change: Recapture from prev well
 	
-	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50) 
-	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50) 
+	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50) 'Change: Recapture mix
+	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50) 'Change: Recapture mix
 	AMove Z, @Proc(6).Z.Process
 
 '---BF Separation---
 'Print 0, 1, "Separation"
 
-	MagSepPos(6, @WashVol2, @Magnet_M) 
+	MagSepPos(6, @WashVol2, @Magnet_M) 'Change: Recapture collect beads
 
-	MoveToPos(7)
-	HeightMM(1)
+	MoveToPos(7)'Change: Recapture return to new well
+	HeightMM(1) 'Change: Recapture return to new well
 	
 	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,100,50)
 	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
@@ -805,24 +805,24 @@ Print 0, 0, " Washing 1"
 	MoveToPos(8)
 	HeightMM(1)
 	
-	WashBeads(8, 8, @WashVol2, @Speed_P_H, @Speed_P_HH, 50, 100)
-	HeightMM(1)
+	WashBeads(8, 8, @WashVol2, @Speed_P_H, @Speed_P_HH, 50, 100) 'Change: Added line 
+	HeightMM(1) 												 'Change: Added line
 	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50)
 	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
-	MoveToPos(7)
-	HeightMM(1)
+	MoveToPos(7) 'Change: Recapture from prev well
+	HeightMM(1)  'Change: Recapture from prev well
 	
-	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50) 
-	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50) 
+	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50)  'Change: Recapture mix
+	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)  'Change: Recapture mix 
 	AMove Z, @Proc(7).Z.Process
 
 '---BF Separation---
 'Print 0, 1, "Separation"
 
-	MagSepPos(7, @WashVol2, @Magnet_M)
+	MagSepPos(7, @WashVol2, @Magnet_M) 'Change: Recapture collect beads
 	
-	MoveToPos(8)
-	HeightMM(1)
+	MoveToPos(8) 'Change: Recapture return to new well
+	HeightMM(1)  'Change: Recapture return to new well
 	
 	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50)
 	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
@@ -834,13 +834,13 @@ Print 0, 0, " Washing 1"
 'Print 0, 1, "Separation"
 
 	MagSepPos(8, @WashVol2, @Magnet_M)
-	Wait 10000
-	HeightMM(1)
-	AMove M, @Magnet_M
-	DispenseS(100, @Speed_P_H)
-	Org M
-	MoveToPos(10)
-	HeightMM(1)
+	Wait 10000 'Change: Wait 10 seconds
+	HeightMM(1) 'Change: Move tip into well
+	AMove M, @Magnet_M 'Change: Engage magnet
+	DispenseS(100, @Speed_P_H)	'Change: Dispense 100
+	Org M	'Change: Magnet back to origin
+	MoveToPos(10)	'Change: Move to well 10
+	HeightMM(1)		'Change: Move tip into well
 '==============<< Temp waiting >>=================   
 *Temp_Wait_Elute
        GetTemperature @Temp
@@ -865,11 +865,11 @@ Print 0, 0, "Elution"
 '	ClearScreen
 	MoveToPos(12)
 	HeightMM(1)
-	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
-	Mix(5,150,@Speed_P_ML,@Speed_P_H,50,50)
-	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)
-	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
-	Mix(5,50,@Speed_P_ML,@Speed_P_H,50,50)	
+	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50) 	'Change: Mix up and down
+	Mix(5,150,@Speed_P_ML,@Speed_P_H,50,50)		'Change: Mix up and down
+	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)	'Change: Mix up and down
+	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)		'Change: Mix up and down
+	Mix(5,50,@Speed_P_ML,@Speed_P_H,50,50)		'Change: Mix up and down
 	DispenseS(35, @Speed_P_M)
 	
 		GoTo *elutionend1
@@ -881,11 +881,11 @@ Print 0, 0, "Elution"
 '	ClearScreen
 	MoveToPos(12)
 	HeightMM(1)
-	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
-	Mix(5,150,@Speed_P_ML,@Speed_P_H,50,50)
-	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)	
-	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
-	Mix(5,50,@Speed_P_ML,@Speed_P_H,50,50)	
+	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)		'Change: Mix up and down
+	Mix(5,150,@Speed_P_ML,@Speed_P_H,50,50)		'Change: Mix up and down
+	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)	'Change: Mix up and down
+	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)		'Change: Mix up and down
+	Mix(5,50,@Speed_P_ML,@Speed_P_H,50,50)		'Change: Mix up and down
 	DispenseS(60, @Speed_P_M)
 	
 		GoTo *elutionend1
@@ -898,11 +898,11 @@ Print 0, 0, "Elution"
 '	ClearScreen
 	MoveToPos(12)
 	HeightMM(1)
-	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
-	Mix(5,150,@Speed_P_ML,@Speed_P_H,50,50)
-	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)
-	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
-	Mix(5,50,@Speed_P_ML,@Speed_P_H,50,50)		
+	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)		'Change: Mix up and down
+	Mix(5,150,@Speed_P_ML,@Speed_P_H,50,50)		'Change: Mix up and down
+	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)	'Change: Mix up and down
+	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)		'Change: Mix up and down
+	Mix(5,50,@Speed_P_ML,@Speed_P_H,50,50)		'Change: Mix up and down		
 	DispenseS(110, @Speed_P_M)
 	
 		GoTo *elutionend1
@@ -913,21 +913,21 @@ Print 0, 0, "Elution"
 '	Print 0, 0, "Resuspension"	
 
 	'---(Beads Suspension)---
-	Wait 10000
-	DispenseS(50, @Speed_P_M)
-	MoveToPos(8)
-	HeightMM(1)
-	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50)
-	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)
-	MagSepPos(8, @WashVol2, @Magnet_M)
-	HeightMM(1)
-	AMove M, @Magnet_M
-	DispenseS(50, @Speed_P_H)
+	Wait 10000	'Change: Wait 10 seconds
+	DispenseS(50, @Speed_P_M)	'Change: Dispense 50
+	MoveToPos(8)	'Change: Move back for recapture
+	HeightMM(1)		'Change: Lower tip into well
+	Mix(15,@WashVol2,@Speed_P_H,@Speed_P_H,50,50)	'Change: Recapture mixing 
+	MixByTime(@WashTime,@WashVol2,@Speed_P_M,@Speed_P_M,50,50)	'Change: Recapture mixing 
+	MagSepPos(8, @WashVol2, @Magnet_M)	'Change: Capture beads 
+	HeightMM(1)	'Change: Lower tip into well
+	AMove M, @Magnet_M	'Change: Engage magnet
+	DispenseS(50, @Speed_P_H)	'Change: Dispense 50
 	'*skip_to_binding
-	Org M
-	AMove Z, @Stage.Z.Safe
-	MoveToPos(12)
-	HeightMM(1) 
+	Org M	'Change: Magnet back to origin
+	AMove Z, @Stage.Z.Safe 'Change: Z-Axis back to origin
+	MoveToPos(12) 'Change: Move to well 12
+	HeightMM(1) 'Change: Lower tip into well
 	Mix(5,100,@Speed_P_ML,@Speed_P_H,50,50)
 	Mix(5,150,@Speed_P_ML,@Speed_P_H,50,50)
 	Mix(10,180,@Speed_P_ML,@Speed_P_H,50,50)	
@@ -1034,15 +1034,15 @@ Print 0, 0, "Elution"
 	'---(BF Separation)---
 '	Print 0, 1, " Separation     " 
 	AMove M, @Magnet_Thick	
-	AspirateS(400, @Speed_P_ML)
+	AspirateS(400, @Speed_P_ML) 'Change: Doubled volume
 	Wait 5000
-	DispenseS(400, @Speed_P_L)
-	AspirateS(400, @Speed_P_ML)
+	DispenseS(400, @Speed_P_L)	'Change: Doubled volume
+	AspirateS(400, @Speed_P_ML)	'Change: Doubled volume
 	Wait 5000
-	DispenseS(400, @Speed_P_L)
-	AspirateS(400, @Speed_P_ML)
+	DispenseS(400, @Speed_P_L)	'Change: Doubled volume
+	AspirateS(400, @Speed_P_ML)	'Change: Doubled volume
 	Wait 5000
-	DispenseS(450, @Speed_P_L)
+	DispenseS(450, @Speed_P_L)	'Change: Increased volume + 200
 	RMove Z, 6000
 	Wait 5000
 	DispenseS(100, @Speed_P_L)     
@@ -1527,14 +1527,14 @@ WashBeads(@Position, @MixCycles, @MixVol, @AspSpeed, @DispSpeed, @AspWait, @Disp
 	MoveToPos(@Position)			
 	HeightMM(2)
 	Mix(@MixCycles,@MixVol,@AspSpeed,@DispSpeed,@AspWait,@DispWait) 'Mix(20,5000,2500,8000,500,500)
-	AMove M, @Magnet_M
-	@Axis.Z.Speed = 300
-	AMove Z, @Stage.Z.Safe
-	Org M
-	@Axis.Z.Speed = 8000
-	Wait 5000
-	HeightMM(2)
-	Mix(@MixCycles,@MixVol,@AspSpeed,@DispSpeed,@AspWait,@DispWait) 'Mix(20,5000,2500,8000,500,500)
+	AMove M, @Magnet_M 'Change: Engage magnet
+	@Axis.Z.Speed = 300	'Change: Lower Z-axis speed
+	AMove Z, @Stage.Z.Safe	'Change: Move to z-axis origin
+	Org M	'Change: Disengage magnet
+	@Axis.Z.Speed = 8000	'Change: Set z-axis speed to default
+	Wait 5000	'Change: Wait 5 seconds
+	HeightMM(2) 'Change: Lower tip into well
+	Mix(@MixCycles,@MixVol,@AspSpeed,@DispSpeed,@AspWait,@DispWait) 'Mix(20,5000,2500,8000,500,500) 'Change: Mix
 	AspirateS(200, 2500)	
 	Wait 1000
 	DispenseS(200, 2500)
