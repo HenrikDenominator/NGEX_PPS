@@ -839,8 +839,7 @@ Print 0, 0, " Washing 1"
 	AMove M, @Magnet_M 'Change: Engage magnet
 	DispenseS(100, @Speed_P_H)	'Change: Dispense 100
 	Org M	'Change: Magnet back to origin
-	MoveToPos(10)	'Change: Move to well 10
-	HeightMM(1)		'Change: Move tip into well
+	
 '==============<< Temp waiting >>=================   
 *Temp_Wait_Elute
        GetTemperature @Temp
@@ -851,7 +850,8 @@ Print 0, 0, " Washing 1"
 '---(Well 10)---
 ClearScreen
 Print 0, 0, "Elution"
-	
+	MoveToPos(10)	'Change: Move to well 10
+	HeightMM(1)		'Change: Move tip into well
 
 	If @E30IsSel Then GoTo *30Elute
 	If @E50IsSel Then GoTo *50Elute
